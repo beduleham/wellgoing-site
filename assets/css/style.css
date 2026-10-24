@@ -363,10 +363,9 @@ main.page { transition: background-color .15s linear; }
 .phone--mid.is-dim { transform: translateY(-12px); }
 
 /* 6. 사진 클립 리빌 */
-.clip { clip-path: inset(100% 0 0 0); }
-.clip > .photo { transform: scale(1.08); transition: transform 1.4s var(--ease); }
-.clip.is-in { clip-path: inset(0 0 0 0); transition: clip-path 1s cubic-bezier(.7,0,.2,1); }
-.clip.is-in > .photo { transform: none; }
+/* clip-path는 박스가 아니라 사진에 겁니다 — Chrome의 IntersectionObserver가 clip-path로 가려진 박스를 '안 보임'으로 판정해 리빌이 영영 안 되는 문제 방지 */
+.clip > .photo { clip-path: inset(100% 0 0 0); transform: scale(1.08); transition: transform 1.4s var(--ease); }
+.clip.is-in > .photo { clip-path: inset(0 0 0 0); transform: none; transition: clip-path 1s cubic-bezier(.7,0,.2,1), transform 1.4s var(--ease); }
 
 /* 7. 버튼 채움 와이프 · 링크 밑줄 그리기 */
 .btn { position: relative; overflow: hidden; isolation: isolate; }
@@ -382,7 +381,7 @@ main.page { transition: background-color .15s linear; }
   .curtain, .curtain.is-cover, .curtain.is-leaving { display: none; }
   html.is-entering main, html.is-entering .hdr { visibility: visible; }
   .mask .ln__in { transform: none; transition: none; }
-  .clip { clip-path: none; } .clip > .photo { transform: none; }
+  .clip > .photo { clip-path: none; transform: none; }
   .btn::before, .lnk { transition: none; animation: none; }
 }
 @media (max-width: 960px) {
