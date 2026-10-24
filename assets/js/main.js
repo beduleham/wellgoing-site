@@ -93,31 +93,62 @@ const WG = {
 })();
 
 /* 6. 문의 폼 ---------------------------------------------------- */
+// 전송 흐름: 사이트 폼 → Google Apps Script(WG.FORM_ENDPOINT) → 구글 시트에 한 줄 추가 + 담당자 메일 알림.
+// 주소가 비어 있거나 전송이 실패하면 메일 앱으로 내용을 넘깁니다. 설정 방법은 _build/google-sheet/README.md
 (function forms() {
+  const EN = document.documentElement.lang === 'en';
+  const M = EN ? {
+    consent: 'Please agree to the collection and use of your personal data.',
+    contact: 'Please leave a phone number or an email address so we can reply.',
+    sending: 'Sending…', ok: 'Thank you — your enquiry has been received. We will be in touch shortly.',
+    fail: 'Sorry, we could not send your enquiry.', mail: 'Send by email instead', mailOpen: 'Your email app will open. Please check the message and send it.',
+  } : {
+    consent: '개인정보 수집·이용에 동의해 주세요.',
+    contact: '회신받으실 연락처나 이메일 중 하나를 남겨주세요.',
+    sending: '보내는 중…', ok: '문의가 접수되었습니다. 확인 후 빠르게 회신드리겠습니다.',
+    fail: '전송하지 못했습니다.', mail: '메일로 보내기', mailOpen: '메일 앱이 열립니다. 내용을 확인하고 보내주세요.',
+  };
+  const LABEL = { type: '유형', name: '이름', org: '기관·회사', phone: '연락처', email: '이메일', company: '회사명', country: '국가', message: '내용' };
+
+  // 문의 유형 카드: 선택한 카드에 강조 표시
+  document.querySelectorAll('.opt input[type="radio"]').forEach((r) => r.addEventListener('change', () => {
+    document.querySelectorAll(`.opt input[name="${r.name}"]`).forEach((o) => o.closest('.opt').classList.toggle('is-on', o.checked));
+  }));
+
   document.querySelectorAll('form[data-wg-form]').forEach((form) => {
     const note = form.querySelector('.form-note');
+    const btn = form.querySelector('button[type="submit"]');
+    const show = (msg, err, html) => { if (!note) return; note[html ? 'innerHTML' : 'textContent'] = msg; note.classList.add('is-shown'); note.classList.toggle('is-error', !!err); };
+    const mailto = (data) => {
+      const lines = []; data.forEach((v, k) => { if (!k.startsWith('_') && k !== 'consent' && v) lines.push(`${LABEL[k] || k}: ${v}`); });
+      const subject = `[웰고잉 ${form.dataset.wgForm === 'partner' ? '파트너 문의' : '문의'}] ${data.get('type') || ''} ${data.get('name') || ''}`.trim();
+      return `mailto:${WG.CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+    };
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const data = new FormData(form);
-      const consent = form.querySelector('input[name="consent"]');
-      if (consent && !consent.checked) { show('개인정보 수집·이용에 동의해 주세요.'); return; }
-      if (WG.FORM_ENDPOINT) {
-        try {
-          const res = await fetch(WG.FORM_ENDPOINT, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
-          if (res.ok) { form.reset(); show('문의가 접수되었습니다. 확인 후 회신드리겠습니다.'); }
-          else show('전송에 실패했습니다. 잠시 후 다시 시도해 주세요.');
-        } catch (err) { show('전송에 실패했습니다. 네트워크를 확인해 주세요.'); }
-      } else {
-        // 전송 주소가 없으면 메일 앱으로 내용을 넘깁니다.
-        const lines = [];
-        data.forEach((v, k) => { if (k !== 'consent') lines.push(`${k}: ${v}`); });
-        const subject = encodeURIComponent(`[웰고잉 문의] ${data.get('type') || data.get('subject') || ''}`);
-        const body = encodeURIComponent(lines.join('\n'));
-        window.location.href = `mailto:${WG.CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-        show('메일 앱이 열립니다. 내용을 확인하고 보내주세요.');
-      }
+      if (data.get('_hp')) { form.reset(); show(M.ok); return; } // 스팸 봇
+      if (!data.get('consent')) { show(M.consent, true); return; }
+      if (form.dataset.wgForm === 'contact' && !data.get('phone') && !data.get('email')) { show(M.contact, true); form.querySelector('[name="phone"]').focus(); return; }
+      data.set('_form', form.dataset.wgForm || 'contact');
+      data.set('_lang', EN ? 'EN' : 'KR');
+      data.set('_page', location.pathname);
+
+      if (!WG.FORM_ENDPOINT) { location.href = mailto(data); show(M.mailOpen); return; }
+
+      const label = btn.innerHTML; btn.disabled = true; btn.textContent = M.sending;
+      const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), 20000);
+      try {
+        const res = await fetch(WG.FORM_ENDPOINT, { method: 'POST', body: new URLSearchParams(data), signal: ctrl.signal });
+        const out = await res.json().catch(() => ({}));
+        if (!res.ok || out.ok === false) throw new Error(out.error || res.status);
+        form.reset(); document.querySelectorAll('.opt').forEach((o, i) => o.classList.toggle('is-on', i === 0));
+        show(M.ok);
+      } catch (err) {
+        show(`${M.fail} <a href="${mailto(data)}">${M.mail} →</a>`, true, true);
+      } finally { clearTimeout(timer); btn.disabled = false; btn.innerHTML = label; }
     });
-    function show(msg) { if (!note) return; note.textContent = msg; note.classList.add('is-shown'); }
   });
 })();
 

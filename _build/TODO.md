@@ -25,7 +25,7 @@
 - 네이버 서치어드바이저·구글 서치콘솔에 sitemap.xml 제출
 
 ## 설정
-- assets/js/main.js 맨 위 `WG.FORM_ENDPOINT` — Formspree 등 폼 수신 주소 입력 (비우면 mailto)
+- 문의 폼 → 구글 시트: _build/google-sheet/README.md 대로 설정 후 웹 앱 URL을 assets/js/main.js 의 `WG.FORM_ENDPOINT` 에 입력 (비우면 메일 앱으로 전송)
 - 지도: 현재 구글 지도 임베드. 네이버/카카오로 바꾸려면 about.html, contact.html 의 `.map-embed` iframe 교체
 - 영문 페이지(/en/): 원어민 감수 권장. 문장은 _build/en/tr_*.py 에서 고치고 build_en.py 재실행
 - privacy.html, terms.html — 법무 검토 후 게시

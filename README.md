@@ -5,7 +5,7 @@
 ## 구조
 - `index.html` 메인 · `about.html` 회사 소개 · `ai-care.html` AI 케어 · `products.html` 제품 · `bichae-body-shield.html` 바디쉴드 상세 · `partnership.html` 파트너십 · `contact.html` 문의 · `privacy.html` · `terms.html`
 - `assets/css/style.css` — 색·글꼴·여백은 파일 맨 위 토큰만 고치면 전체에 반영
-- `assets/js/main.js` — 헤더, 모바일 메뉴, 기본 리빌, 카운트업, 문의 폼. 맨 위 `WG.FORM_ENDPOINT`에 폼 수신 주소 입력
+- `assets/js/main.js` — 헤더, 모바일 메뉴, 기본 리빌, 카운트업, 문의 폼. 맨 위 `WG.FORM_ENDPOINT`에 구글 시트 웹 앱 주소 입력 (설정법: `_build/google-sheet/README.md`)
 - `assets/js/effects.js` — 화면 효과 6종(페이지 전환 커튼, 헤드라인 마스크, 배경 크로스페이드, 패럴랙스, AI 단계 연동, 사진 클립). 맨 위 `FX` 에서 하나씩 끌 수 있음. 버튼·링크 호버는 style.css 끝부분
 - `assets/img` `assets/video` `assets/fonts` — 이미지·영상·영문 서체 (국문 Pretendard는 CDN)
 - `_build/` — 디자인 캔버스 구성안에서 페이지를 생성한 스크립트. 사이트 운영에는 필요 없음

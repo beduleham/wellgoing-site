@@ -70,17 +70,17 @@
 <div style="grid-column: 7 / span 6; display: flex; flex-direction: column; gap: 40px;">
 <fieldset style="border: 0; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
 <legend class="small" style="font-weight: 600; margin-bottom: 12px;">Enquiry type</legend>
-<label style="display: flex; flex-direction: column; gap: 6px; padding: 20px; border-radius: 6px; background: var(--ink); color: var(--surface); cursor: pointer;"><input checked="checked" name="k-type" style="accent-color: #64773f; align-self: flex-start; margin: 0 0 6px;" type="radio"/><span style="font-weight: 600;">AI care service</span><span class="caption" style="color: #a4b49a;">Hospitals · Care facilities · Home care</span></label>
-<label style="display: flex; flex-direction: column; gap: 6px; padding: 20px; border-radius: 6px; border: 1px solid var(--line); cursor: pointer;"><input name="k-type" style="accent-color: #64773f; align-self: flex-start; margin: 0 0 6px;" type="radio"/><span style="font-weight: 600;">Products · Bulk purchase</span><span class="caption muted">Institutional supply · Quotes</span></label>
-<label style="display: flex; flex-direction: column; gap: 6px; padding: 20px; border-radius: 6px; border: 1px solid var(--line); cursor: pointer;"><input name="k-type" style="accent-color: #64773f; align-self: flex-start; margin: 0 0 6px;" type="radio"/><span style="font-weight: 600;">Overseas partnership</span><span class="caption muted">Distribution · B2B · Private label</span></label>
+<label class="opt is-on"><input checked="checked" form="wg-contact" name="type" type="radio" value="AI 케어 도입"/><span style="font-weight: 600;">AI care service</span><span class="caption muted">Hospitals · Care facilities · Home care</span></label>
+<label class="opt"><input form="wg-contact" name="type" type="radio" value="제품 · 대량 구매"/><span style="font-weight: 600;">Products · Bulk purchase</span><span class="caption muted">Institutional supply · Quotes</span></label>
+<label class="opt"><input form="wg-contact" name="type" type="radio" value="해외 파트너십"/><span style="font-weight: 600;">Overseas partnership</span><span class="caption muted">Distribution · B2B · Private label</span></label>
 </fieldset>
-<form action="#" class="form" data-wg-form="" method="post">
-<div class="fld"><label for="k-nm">Name</label><input id="k-nm" placeholder="Your name" type="text"/></div>
-<div class="fld"><label for="k-org">Organisation</label><input id="k-org" placeholder="Organisation" type="text"/></div>
-<div class="fld"><label for="k-ph">Phone</label><input id="k-ph" placeholder="+82 10-0000-0000" type="tel"/></div>
-<div class="fld"><label for="k-em">Email</label><input id="k-em" placeholder="name@example.com" type="email"/></div>
-<div class="fld fld--full"><label for="k-ms">Message</label><textarea id="k-ms" placeholder="Tell us about your organisation, the quantity you need, or anything you'd like to ask."></textarea></div>
-<label class="fld--full small muted" style="display: flex; gap: 10px; align-items: center;"><input style="accent-color: #64773f; width: 18px; height: 18px;" type="checkbox"/>I agree to the collection and use of my personal data (required)</label>
+<form action="#" class="form" data-wg-form="contact" id="wg-contact" method="post"><input aria-hidden="true" autocomplete="off" class="hp" name="_hp" tabindex="-1" type="text"/>
+<div class="fld"><label for="k-nm">Name</label><input autocomplete="name" id="k-nm" name="name" placeholder="Your name" required="" type="text"/></div>
+<div class="fld"><label for="k-org">Organisation</label><input autocomplete="organization" id="k-org" name="org" placeholder="Organisation" type="text"/></div>
+<div class="fld"><label for="k-ph">Phone</label><input autocomplete="tel" id="k-ph" name="phone" placeholder="+82 10-0000-0000" type="tel"/></div>
+<div class="fld"><label for="k-em">Email</label><input autocomplete="email" id="k-em" name="email" placeholder="name@example.com" type="email"/></div>
+<div class="fld fld--full"><label for="k-ms">Message</label><textarea id="k-ms" name="message" placeholder="Tell us about your organisation, the quantity you need, or anything you'd like to ask." required=""></textarea></div>
+<label class="fld--full small muted consent"><input name="consent" required="" type="checkbox" value="동의"/><span>I agree to the <a href="privacy.html">collection and use of my personal data</a> (required)</span></label>
 <div class="fld--full btns"><button class="btn btn--solid" type="submit">Send enquiry <span>→</span></button><p class="form-note" role="status"></p></div>
 </form>
 </div>

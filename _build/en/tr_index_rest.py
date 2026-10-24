@@ -331,3 +331,11 @@ A = {
 "이용약관 — 주식회사 웰고잉": "Terms of Use — WELLGOING Co., Ltd.",
 "이용약관 — 웰고잉": "Terms of Use — WELLGOING",
 }
+
+T.update({
+'<a href="privacy.html">개인정보 수집 및 이용</a>에 동의합니다 (필수)': 'I agree to the <a href="privacy.html">collection and use of my personal data</a> (required)',
+"문의 폼 접수·보관 및 담당자 알림: Google LLC (Google 스프레드시트·Apps Script)": "Receiving and storing form submissions and notifying staff: Google LLC (Google Sheets · Apps Script)",
+"웹사이트 호스팅: Vercel Inc.": "Website hosting: Vercel Inc.",
+"위 수탁자는 미국 등 국외에 서버를 두고 있어, 문의 폼에 입력한 정보(2항의 항목)가 문의 제출 시점에 국외로 이전되어 3항의 보유 기간 동안 보관될 수 있습니다. 국외 이전을 원하지 않으시면 문의 폼 대신 전화 또는 이메일로 문의해 주세요.":
+ "These processors operate servers outside Korea, including in the United States. Information entered in our forms (the items in section 2) may be transferred abroad when you submit it and stored for the period in section 3. If you prefer that it not be transferred abroad, please contact us by phone or email instead.",
+})

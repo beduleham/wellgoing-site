@@ -158,13 +158,14 @@
 <p class="body muted">We will review your message and reply personally.</p>
 <a class="lnk" href="mailto:wellgoing@wellgoing.kr?subject=%5B%EC%9B%B0%EA%B3%A0%EC%9E%89%5D%20%ED%9A%8C%EC%82%AC%20%EC%86%8C%EA%B0%9C%EC%84%9C%20%EC%9A%94%EC%B2%AD" style="align-self: flex-start;">Request company profile <i>↓</i></a>
 </div>
-<form action="#" class="form" data-wg-form="" method="post" style="grid-column: 6 / span 7;">
-<div class="fld"><label for="g-co">Company</label><input id="g-co" placeholder="Company name" type="text"/></div>
-<div class="fld"><label for="g-ct">Country</label><input id="g-ct" placeholder="Country" type="text"/></div>
-<div class="fld"><label for="g-nm">Name</label><input id="g-nm" placeholder="Full name" type="text"/></div>
-<div class="fld"><label for="g-em">Email</label><input id="g-em" placeholder="name@company.com" type="email"/></div>
-<div class="fld fld--full"><label for="g-tp">Type</label><select id="g-tp"><option>Distribution partner</option><option>B2B / Institution</option><option>Private label</option></select></div>
-<div class="fld fld--full"><label for="g-ms">Message</label><textarea id="g-ms" placeholder="Tell us about your market, expected volumes and the products you're interested in."></textarea></div>
+<form action="#" class="form" data-wg-form="partner" id="wg-partner" method="post" style="grid-column: 6 / span 7;"><input aria-hidden="true" autocomplete="off" class="hp" name="_hp" tabindex="-1" type="text"/>
+<div class="fld"><label for="g-co">Company</label><input autocomplete="organization" id="g-co" name="company" placeholder="Company name" required="" type="text"/></div>
+<div class="fld"><label for="g-ct">Country</label><input autocomplete="country-name" id="g-ct" name="country" placeholder="Country" required="" type="text"/></div>
+<div class="fld"><label for="g-nm">Name</label><input autocomplete="name" id="g-nm" name="name" placeholder="Full name" required="" type="text"/></div>
+<div class="fld"><label for="g-em">Email</label><input autocomplete="email" id="g-em" name="email" placeholder="name@company.com" required="" type="email"/></div>
+<div class="fld fld--full"><label for="g-tp">Type</label><select id="g-tp" name="type"><option value="유통 파트너">Distribution partner</option><option value="B2B 고객">B2B / Institution</option><option value="자체 브랜드(PB)">Private label</option></select></div>
+<div class="fld fld--full"><label for="g-ms">Message</label><textarea id="g-ms" name="message" placeholder="Tell us about your market, expected volumes and the products you're interested in." required=""></textarea></div>
+<label class="fld--full small muted consent"><input name="consent" required="" type="checkbox" value="동의"/><span>I agree to the <a href="privacy.html">collection and use of my personal data</a> (required)</span></label>
 <div class="fld--full btns"><button class="btn btn--solid" type="submit">Send enquiry <span>→</span></button><p class="form-note" role="status"></p></div>
 </form>
 </div>
