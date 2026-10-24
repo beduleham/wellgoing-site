@@ -11,8 +11,11 @@
 - `_build/` — 디자인 캔버스 구성안에서 페이지를 생성한 스크립트. 사이트 운영에는 필요 없음
 - `_build/TODO.md` — 오픈 전 확인 목록
 
-## 올리는 법
-Vercel / Netlify / Cloudflare Pages: 이 폴더를 그대로 드래그하거나 GitHub 저장소를 연결. 카페24 등 일반 호스팅: FTP로 폴더 내용을 루트에 업로드.
+## 배포
+- 저장소: github.com/beduleham/wellgoing-site (`main`)
+- 호스팅: Vercel — https://wellgoing-site.vercel.app (Framework Preset: Other, 빌드 없음)
+- `main`에 push하면 Vercel이 자동으로 재배포합니다. 수정 → 커밋 → push 가 전부입니다.
+- 도메인 연결: Vercel 프로젝트 → Settings → Domains 에 `wellgoing.kr` 추가 후, 도메인 DNS에 A `@` → `76.76.21.21`, CNAME `www` → `cname.vercel-dns.com`
 
 ## 수정하는 법
 - 문구: 해당 html 파일에서 글자를 찾아 바꾸면 됩니다. 섹션마다 `<!-- S04 AI CARE -->` 같은 주석이 있습니다.
