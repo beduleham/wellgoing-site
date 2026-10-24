@@ -100,3 +100,19 @@ for p in PAGES:
 open(os.path.join(ROOT, 'sitemap.xml'), 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + '\n'.join(urls) + '\n</urlset>\n')
 open(os.path.join(ROOT, 'robots.txt'), 'w', encoding='utf-8').write(f'User-agent: *\nAllow: /\nDisallow: /_build/\n\nSitemap: {BASE}/sitemap.xml\n')
 print('sitemap.xml, robots.txt written')
+
+
+# CSS/JS 캐시 무효화: 파일 내용이 바뀌면 ?v= 값이 바뀌어 방문자 브라우저가 새 파일을 받습니다
+import hashlib, glob as _glob
+def bust():
+    ver = {}
+    for f in _glob.glob(os.path.join(ROOT, 'assets/css/*.css')) + _glob.glob(os.path.join(ROOT, 'assets/js/*.js')):
+        ver[os.path.relpath(f, ROOT).replace(os.sep, '/')] = hashlib.md5(open(f, 'rb').read()).hexdigest()[:8]
+    pages = _glob.glob(os.path.join(ROOT, '*.html')) + _glob.glob(os.path.join(ROOT, 'en', '*.html'))
+    for f in pages:
+        t = open(f, encoding='utf-8').read()
+        t2 = re.sub(r'((?:\.\./)?)(assets/(?:css|js)/[\w.-]+\.(?:css|js))(\?v=\w+)?"',
+                    lambda m: f'{m.group(1)}{m.group(2)}?v={ver.get(m.group(2), "0")}"', t)
+        if t2 != t: open(f, 'w', encoding='utf-8').write(t2)
+    print('cache-bust:', ', '.join(f'{k.split("/")[-1]}={v}' for k, v in ver.items()))
+bust()
