@@ -22,7 +22,7 @@
 ## 설정
 - assets/js/main.js 맨 위 `WG.FORM_ENDPOINT` — Formspree 등 폼 수신 주소 입력 (비우면 mailto)
 - 지도: 현재 구글 지도 임베드. 네이버/카카오로 바꾸려면 about.html, contact.html 의 `.map-embed` iframe 교체
-- 영문 페이지: 헤더의 "EN"은 준비 중 표시. /en/ 제작 시 링크 연결
+- 영문 페이지(/en/): 원어민 감수 권장. 문장은 _build/en/tr_*.py 에서 고치고 build_en.py 재실행
 - privacy.html, terms.html — 법무 검토 후 게시
 
 ## 스토어 쪽

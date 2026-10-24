@@ -9,6 +9,7 @@
 - `assets/js/effects.js` — 화면 효과 6종(페이지 전환 커튼, 헤드라인 마스크, 배경 크로스페이드, 패럴랙스, AI 단계 연동, 사진 클립). 맨 위 `FX` 에서 하나씩 끌 수 있음. 버튼·링크 호버는 style.css 끝부분
 - `assets/img` `assets/video` `assets/fonts` — 이미지·영상·영문 서체 (국문 Pretendard는 CDN)
 - `_build/` — 디자인 캔버스 구성안에서 페이지를 생성한 스크립트. 사이트 운영에는 필요 없음
+- `en/` — 영문 페이지 9개. 직접 고치지 말고 `_build/en/tr_*.py`(번역 사전)를 고친 뒤 `python3 _build/en/build_en.py` 로 다시 생성 (한국어 페이지 수정 후에도 다시 실행)
 - `_build/TODO.md` — 오픈 전 확인 목록
 
 ## 배포
