@@ -2,3 +2,4 @@
 Thumbs.db
 *.log
 .vercel
+__pycache__/
