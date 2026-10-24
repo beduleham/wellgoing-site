@@ -273,6 +273,9 @@
 @media (max-width: 560px) {
   .cols3, .cols4, .stats { grid-template-columns: minmax(0, 1fr); }
   .d-xl { font-size: 48px; }
+  /* 섹션 머리: 모바일에서는 번호·제목만, 영문 라벨은 숨김 */
+  .sh { grid-template-columns: auto 1fr; }
+  .sh > .eyebrow { display: none; }
 }
 
 
@@ -288,7 +291,7 @@ img, video { max-width: 100%; }
 .hero-split__copy { padding: 120px 64px 64px max(32px, calc((100vw - 1280px) / 2 + 32px)); display: flex; flex-direction: column; gap: 20px; }
 .hero-split__media { position: relative; }
 .hero-split__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.map-embed { width: 100%; height: 100%; min-height: 420px; border: 0; border-radius: 2px; filter: grayscale(1) sepia(.25) hue-rotate(60deg) saturate(.6) contrast(.95); }
+.map-embed { width: 100%; height: 100%; min-height: 480px; display: block; background: var(--sage-100); border: 0; border-radius: 2px; filter: grayscale(1) sepia(.25) hue-rotate(60deg) saturate(.6) contrast(.95); }
 .legal { max-width: 784px; margin: 0 auto; padding: 0 32px; }
 .legal h2 { font-size: 21px; font-weight: 600; margin: 48px 0 12px; letter-spacing: -.015em; }
 .legal p, .legal li { font-size: 15px; line-height: 1.8; color: var(--ink-muted); }
@@ -352,7 +355,7 @@ main.page { transition: background-color .15s linear; }
 /* 5. AI 5단계 ↔ 앱 화면 */
 [data-steps] > li { transition: opacity .5s var(--ease); }
 [data-steps] > li .n-md { transition: color .5s var(--ease); }
-[data-steps].is-sync > li:not(.is-on) { opacity: .45; }
+[data-steps].is-sync > li:not(.is-on) { opacity: .68; }
 [data-steps] > li.is-on .n-md { color: var(--ink); }
 .phone { transition: transform .7s var(--ease), opacity .7s var(--ease), box-shadow .7s var(--ease); }
 .phone.is-dim { opacity: .55; }

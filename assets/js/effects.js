@@ -63,8 +63,10 @@ const EASE = 'cubic-bezier(.2,.7,.2,1)';
   if (!main) return;
   const secs = [...main.querySelectorAll(':scope > section')].filter((s) => s.getAttribute('data-theme') !== 'mist' && !s.classList.contains('mani'));
   if (secs.length < 2) return;
-  const parse = (c) => { const m = c.match(/\d+(\.\d+)?/g) || [250, 248, 240]; return m.slice(0, 3).map(Number); };
-  const items = secs.map((s) => ({ el: s, rgb: parse(getComputedStyle(s).backgroundColor) }));
+  // 배경이 투명한 섹션(rgba(0,0,0,0))은 건너뜁니다 — 검정으로 잘못 읽히는 것을 방지
+  const parse = (c) => { const m = (c.match(/\d+(\.\d+)?/g) || []).map(Number); if (m.length < 3 || (m.length > 3 && m[3] === 0)) return null; return m.slice(0, 3); };
+  const items = secs.map((s) => ({ el: s, rgb: parse(getComputedStyle(s).backgroundColor) })).filter((it) => it.rgb);
+  if (items.length < 2) return;
   items.forEach((it) => { it.el.style.background = 'transparent'; });
   const mix = (a, b, t) => a.map((v, i) => Math.round(v + (b[i] - v) * t));
   const paint = () => {
