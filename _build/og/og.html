@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: "Instrument Serif"; src: url("../../assets/fonts/instrument-serif-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-style: italic; src: url("../../assets/fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 500; src: url("../../assets/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Pretendard Variable"; font-weight: 45 920; src: url("../../assets/fonts/PretendardVariable.woff2") format("woff2"); }
+html, body { margin: 0; }
+.card { width: 1200px; height: 630px; position: relative; overflow: hidden; background: #1b2723; color: #faf8f0; font-family: "Pretendard Variable", sans-serif; -webkit-font-smoothing: antialiased; display: grid; grid-template-columns: 640px 560px; }
+.copy { padding: 64px 0 56px 72px; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 2; }
+.wordmark { font-family: "Cormorant Garamond"; font-weight: 500; font-size: 18px; letter-spacing: .34em; text-transform: uppercase; color: #bdcdb4; }
+.eyebrow { font-size: 14px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: #a4b49a; margin-bottom: 22px; }
+.title { font-family: "Instrument Serif", serif; font-size: 72px; line-height: 1.02; letter-spacing: -.01em; margin: 0 0 26px; }
+.title.ko { font-family: "Pretendard Variable"; font-weight: 640; font-size: 50px; line-height: 1.22; letter-spacing: -.035em; }
+.sub { font-size: 21px; line-height: 1.6; color: #dde2d2; max-width: 520px; margin: 0; }
+.sub.en { font-size: 20px; }
+.tag { font-family: "Cormorant Garamond"; font-style: italic; font-size: 24px; color: #a4b49a; }
+.media { position: relative; }
+.media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #1b2723 0%, rgba(27,39,35,.35) 22%, rgba(27,39,35,0) 60%); }
+.sig { display: none; position: absolute; right: 44px; bottom: 36px; width: 76px; z-index: 3; opacity: .95; }
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="copy">
+    <div class="wordmark">Wellgoing</div>
+    <div>
+      <div class="eyebrow" id="eyebrow">Compassionate Technology</div>
+      <h1 class="title" id="title">Care, Connected by AI</h1>
+      <p class="sub" id="sub">케어 현장의 기록을 AI로 잇고, 물 없이도 존엄한 위생을 지키는 제품을 만듭니다.</p>
+    </div>
+    <div class="tag">Better Care, Better Living</div>
+  </div>
+  <div class="media"><img id="img" src="../../assets/img/shower-sheet-hero.jpg" alt=""></div>
+  <img class="sig" src="../../assets/img/wellgoing-signature-cream.svg" alt="">
+</div>
+</body>
+</html>

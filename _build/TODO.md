@@ -19,6 +19,11 @@
 ## 자료
 - 회사 소개서 PDF: 지금은 '회사 소개서 요청' 메일 링크(index.html, partnership.html). PDF가 준비되면 assets/docs/ 에 올리고 링크 교체
 
+## 도메인 연결 후
+- _build/site.json 의 base 를 새 도메인으로 바꾸고 `python3 _build/seo.py` → 커밋·push
+- 카카오톡 공유 캐시 초기화: https://developers.kakao.com/tool/clear/og 에 새 주소 입력
+- 네이버 서치어드바이저·구글 서치콘솔에 sitemap.xml 제출
+
 ## 설정
 - assets/js/main.js 맨 위 `WG.FORM_ENDPOINT` — Formspree 등 폼 수신 주소 입력 (비우면 mailto)
 - 지도: 현재 구글 지도 임베드. 네이버/카카오로 바꾸려면 about.html, contact.html 의 `.map-embed` iframe 교체

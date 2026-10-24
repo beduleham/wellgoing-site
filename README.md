@@ -10,6 +10,10 @@
 - `assets/img` `assets/video` `assets/fonts` — 이미지·영상·영문 서체 (국문 Pretendard는 CDN)
 - `_build/` — 디자인 캔버스 구성안에서 페이지를 생성한 스크립트. 사이트 운영에는 필요 없음
 - `en/` — 영문 페이지 9개. 직접 고치지 말고 `_build/en/tr_*.py`(번역 사전)를 고친 뒤 `python3 _build/en/build_en.py` 로 다시 생성 (한국어 페이지 수정 후에도 다시 실행)
+- `_build/seo.py` + `_build/site.json` — 공유 카드(og:image)·canonical·hreflang·파비콘·JSON-LD·sitemap·robots 를 전 페이지에 일괄 적용. **도메인이 바뀌면 site.json 의 base 만 고치고 `python3 _build/seo.py`** (순서: build_en.py → seo.py)
+- `assets/og/` — 카카오톡·문자·슬랙 공유 카드 1200×630 (KR/EN × 기본·AI케어·바디쉴드·파트너십). 다시 만들려면 `node _build/og/render.js`
+- `assets/icons/` — 파비콘·아이폰 홈화면 아이콘·manifest (`node _build/icons/render.js`)
+- `404.html` — Vercel이 없는 주소에 자동으로 보여줌 · `vercel.json` — 보안·캐시 헤더
 - `_build/TODO.md` — 오픈 전 확인 목록
 
 ## 배포
