@@ -159,3 +159,20 @@ const WG = {
     if (d.open) items.forEach((o) => { if (o !== d) o.removeAttribute('open'); });
   }));
 })();
+
+/* 8. 메인 숲 영상 — 첫 화면이 다 뜬 뒤에 불러오기 -------------------
+   휴대폰: 세로로 잘라낸 가벼운 영상(약 0.7MB) / 데스크톱: 1080p
+   데이터 절약 모드·동작 줄이기 설정이면 정지 이미지만 보여줍니다. */
+(function heroVideo() {
+  const v = document.querySelector('video.hero-video');
+  if (!v) return;
+  const c = navigator.connection || {};
+  if (c.saveData || /(^|-)2g$/.test(c.effectiveType || '') || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const start = () => {
+    v.src = matchMedia('(max-width: 768px)').matches ? v.dataset.srcM : v.dataset.src;
+    v.addEventListener('playing', () => v.classList.add('is-on'), { once: true });
+    const p = v.play(); if (p && p.catch) p.catch(() => {});   // 저전력 모드 등 자동재생이 막히면 정지 이미지 유지
+  };
+  const later = () => setTimeout(start, 300);
+  if (document.readyState === 'complete') later(); else addEventListener('load', later, { once: true });
+})();

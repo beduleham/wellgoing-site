@@ -52,9 +52,12 @@ def head_block(p, lang):
         f'<link rel="apple-touch-icon" href="{asset}assets/icons/apple-touch-icon.png">',
         f'<link rel="manifest" href="{asset}assets/icons/site.webmanifest">',
         f'<link rel="preload" href="{asset}assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>',
+        f'<link rel="preload" href="{asset}assets/fonts/pretendard-wg.woff2" as="font" type="font/woff2" crossorigin>',
     ]
     if p in NOINDEX: lines.append('<meta name="robots" content="noindex">')
-    if p == 'index': lines.append('<link rel="preload" href="' + asset + 'assets/img/img01-forest-poster.webp" as="image">')
+    if p == 'index':
+        lines.append('<link rel="preload" href="' + asset + 'assets/img/img01-forest-poster-m.webp" as="image" media="(max-width: 768px)" fetchpriority="high">')
+        lines.append('<link rel="preload" href="' + asset + 'assets/img/img01-forest-poster.webp" as="image" media="(min-width: 769px)" fetchpriority="high">')
     ld = [ORG] if p in ('index', 'about', 'contact') else []
     if p == 'bichae-body-shield': ld.append(PRODUCT)
     for d in ld: lines.append('<script type="application/ld+json">' + json.dumps(d, ensure_ascii=False) + '</script>')

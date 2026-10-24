@@ -32,7 +32,7 @@ def translate_page(p):
     for t in list(soup.find_all(string=True)):
         if isinstance(t, Comment) or t.parent is None or t.find_parent('html') is None or t.parent.name in ('script', 'style') or not KO.search(str(t)): continue
         el = t.parent
-        while el.name in INLINE and el.parent is not None and inline_only(el.parent) and el.parent.name not in ('body', 'html', '[document]'):
+        while el.name in INLINE and el.parent is not None and inline_only(el.parent) and el.parent.name not in ('body', 'html', '[document]') and not el.parent.has_attr('data-tr-each'):
             el = el.parent
         if el.name in INLINE or inline_only(el):
             if id(el) in done: continue
@@ -56,7 +56,7 @@ def translate_page(p):
     out = str(soup).replace(' viewbox="', ' viewBox="').replace(' pathlength="', ' pathLength="')
     # 언어·경로·메타
     out = out.replace('<html lang="ko">', '<html lang="en">')
-    out = re.sub(r'(href|src|poster)="assets/', r'\1="../assets/', out)
+    out = re.sub(r'(href|src|poster|srcset|data-src|data-src-m)="assets/', r'\1="../assets/', out)
     out = out.replace('https://www.wellgoing.kr/' + p + '.html', 'https://www.wellgoing.kr/en/' + p + '.html')
     out = out.replace('content="https://www.wellgoing.kr/"', 'content="https://www.wellgoing.kr/en/"')
     # 언어 전환: 데스크톱 헤더 + 모바일 메뉴

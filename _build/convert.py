@@ -26,7 +26,7 @@ BLOBS = {
  'e35d1d900aa547735cc9f558e666e722':'img01-forest.jpg','5828e7d1b0c0cab04559344aa3ef9595':'img02-record.jpg','ec78dbecd3c0b48a053333e3b52e38d1':'img03-room.jpg',
  '0b861cfd9061e80717c1fbe12111604c':'img05-corridor.jpg','602ac1e3cec4e73621f1b177fa70404f':'img06-hands.jpg','abf0ac6d7ca5107a31dce3a009c19aed':'img09-station.jpg',
  'd335b458300b4242f5bee050d0166e00':'img11-dent.jpg','6be2137df184289c87daaf1b7a6938b0':'img14-warehouse.jpg',
- '7649b923d4bb75eafdba170b59794781':'../video/forest-hero.mp4','f6bfc558998f838734a7fda538b68917':'img01-forest-poster.jpg','f1858794d7b9c51c06bbffe0cbdb2800':'world-map-olive.svg',
+ '7649b923d4bb75eafdba170b59794781':'../video/forest-hero-1080.mp4','f6bfc558998f838734a7fda538b68917':'img01-forest-poster.jpg','f1858794d7b9c51c06bbffe0cbdb2800':'world-dots.svg',
 }
 
 MAP_EMBED = '<iframe class="map-embed" title="웰고잉 위치 — 경기도 파주시 책향기로 419 웰스피아" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=%EA%B2%BD%EA%B8%B0%EB%8F%84+%ED%8C%8C%EC%A3%BC%EC%8B%9C+%EC%B1%85%ED%96%A5%EA%B8%B0%EB%A1%9C+419&z=16&output=embed"></iframe>'
@@ -56,9 +56,9 @@ FOOTER = '''<footer data-theme="forest" style="background: var(--surface); color
     <div class="ftr__top">
       <img src="assets/img/wellgoing-signature-cream.svg" alt="WELLGOING Better Care, Better Living" style="width: 150px; height: auto; display: block;">
       <div class="ftr__cols">
-        <div><h5>Company</h5><ul><li><a href="about.html">회사 소개</a></li><li><a href="about.html#cert">인증·특허</a></li><li><a href="about.html#location">오시는 길</a></li></ul></div>
-        <div><h5>Business</h5><ul><li><a href="ai-care.html">AI 케어 서비스</a></li><li><a href="products.html">케어 제품</a></li><li><a href="partnership.html">글로벌 파트너십</a></li><li><a href="https://smartstore.naver.com/sobisense/products/12744315211" target="_blank" rel="noopener">스마트스토어</a></li></ul></div>
-        <div><h5>Contact</h5><ul class="muted"><li><a href="tel:010-3446-0524">010-3446-0524</a></li><li><a href="mailto:wellgoing@wellgoing.kr">wellgoing@wellgoing.kr</a></li><li>경기도 파주시 책향기로 419, 6층 603-3호 (동패동, 웰스피아)</li></ul></div>
+        <div><p class="ftr__h">Company</p><ul><li><a href="about.html">회사 소개</a></li><li><a href="about.html#cert">인증·특허</a></li><li><a href="about.html#location">오시는 길</a></li></ul></div>
+        <div><p class="ftr__h">Business</p><ul><li><a href="ai-care.html">AI 케어 서비스</a></li><li><a href="products.html">케어 제품</a></li><li><a href="partnership.html">글로벌 파트너십</a></li><li><a href="https://smartstore.naver.com/sobisense/products/12744315211" target="_blank" rel="noopener">스마트스토어</a></li></ul></div>
+        <div><p class="ftr__h">Contact</p><ul class="muted"><li><a href="tel:010-3446-0524">010-3446-0524</a></li><li><a href="mailto:wellgoing@wellgoing.kr">wellgoing@wellgoing.kr</a></li><li>경기도 파주시 책향기로 419, 6층 603-3호 (동패동, 웰스피아)</li></ul></div>
       </div>
     </div>
     <div class="ftr__bottom">
@@ -82,10 +82,9 @@ def shell(title, desc, body, active, fname):
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.wellgoing.kr/{'' if fname=='index.html' else fname}">
 <link rel="icon" href="assets/img/wellgoing-monogram-olive.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <script>try{if(sessionStorage.getItem("wgNav")){document.documentElement.classList.add("is-entering");sessionStorage.removeItem("wgNav")}}catch(e){}</script>
 <link rel="stylesheet" href="assets/css/fonts-local.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/pretendard-dynamic.css" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -136,7 +135,7 @@ def convert(key):
     body = body.replace('<form class="form"', '<form class="form" data-wg-form method="post" action="#"')
     body = body.replace('<a class="btn btn--solid" href="#">문의 보내기 <span>→</span></a>', '<button class="btn btn--solid" type="submit">문의 보내기 <span>→</span></button><p class="form-note" role="status"></p>')
     # 비디오 자동재생
-    body = body.replace('<video src="assets/video/forest-hero.mp4"', '<video src="assets/video/forest-hero.mp4" preload="metadata"')
+    body = body.replace('<video src="assets/video/forest-hero-1080.mp4"', '<video src="assets/video/forest-hero-1080.mp4" preload="metadata"')
     # 카운트업
     body = body.replace('<p class="n-xl" style="grid-column: 1 / span 5;">0.00</p>', '<p class="n-xl" style="grid-column: 1 / span 5;" data-count="0.00">0.00</p>')
     body = body.replace('<p class="n-xl">0.00</p>', '<p class="n-xl" data-count="0.00">0.00</p>')

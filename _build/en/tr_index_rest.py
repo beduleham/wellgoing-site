@@ -339,3 +339,10 @@ T.update({
 "위 수탁자는 미국 등 국외에 서버를 두고 있어, 문의 폼에 입력한 정보(2항의 항목)가 문의 제출 시점에 국외로 이전되어 3항의 보유 기간 동안 보관될 수 있습니다. 국외 이전을 원하지 않으시면 문의 폼 대신 전화 또는 이메일로 문의해 주세요.":
  "These processors operate servers outside Korea, including in the United States. Information entered in our forms (the items in section 2) may be transferred abroad when you submit it and stored for the period in section 3. If you prefer that it not be transferred abroad, please contact us by phone or email instead.",
 })
+
+T.update({
+"한국 · 본사<small>KOREA</small>": "Korea · HQ<small>KOREA</small>", "일본<small>JAPAN</small>": "Japan<small>JAPAN</small>",
+"미국<small>UNITED STATES</small>": "United States<small>UNITED STATES</small>", "독일<small>GERMANY</small>": "Germany<small>GERMANY</small>",
+"유럽<small>EUROPE</small>": "Europe<small>EUROPE</small>", "호주 · 수출 중<small>AUSTRALIA</small>": "Australia · Exporting<small>AUSTRALIA</small>",
+"예시 화면입니다. 실제 서비스 화면과 다를 수 있습니다.": "Illustrative screens. The actual service may differ.",
+})

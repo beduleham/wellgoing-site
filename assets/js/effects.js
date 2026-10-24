@@ -119,9 +119,11 @@ const EASE = 'cubic-bezier(.2,.7,.2,1)';
     phones.forEach((p, i) => { p.classList.toggle('is-active', i === map[idx]); p.classList.toggle('is-dim', i !== map[idx]); });
   };
   const io = new IntersectionObserver((es) => {
+    if (window.__wgDemo) return;   // 앱 시연(10번)이 재생 중이면 시연이 강조를 맡음
     es.forEach((en) => { if (en.isIntersecting) set([...steps].indexOf(en.target)); });
   }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
   steps.forEach((li) => io.observe(li));
+  window.__wgStep = set;
   set(0);
 })();
 
@@ -144,4 +146,75 @@ const EASE = 'cubic-bezier(.2,.7,.2,1)';
   if (!l) return;
   const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) { l.classList.add('is-play'); io.disconnect(); } }), { threshold: 0.5 });
   io.observe(l);
+})();
+
+/* 9. How to use 선 일러스트 — 보이면 그리기 시작, 화면 밖이면 반복 동작 일시정지 ---- */
+(function howTo() {
+  const el = document.querySelector('.howto');
+  if (!el) return;
+  const io = new IntersectionObserver((es) => es.forEach((en) => {
+    if (en.isIntersecting) el.classList.add('is-play');
+    el.classList.toggle('is-off', !en.isIntersecting);
+  }), { threshold: 0.25 });
+  io.observe(el);
+})();
+
+/* 10. AI 케어 앱 시연 — 16초 주기: 기록(받아쓰기) → AI 요약 → 전달 대상 선택·전달 --------
+   폰 화면이 보일 때만 재생합니다. 자바스크립트가 없거나 동작 줄이기 설정이면 완성된 정지 화면 그대로. */
+(function appDemo() {
+  const phones = document.querySelectorAll('.phones .phone');
+  if (phones.length < 3 || REDUCE) return;
+  const [p1, p2, p3] = phones;
+  const wave = p1.querySelector('.phone__wave'), mic = p1.querySelector('.phone__mic'), time = p1.querySelector('.phone__time');
+  const say = p1.querySelector('.phone__card p'), sayText = say ? say.textContent : '';
+  const cards = p2.querySelectorAll('.phone__card');
+  const togs = p3.querySelectorAll('.tog'), togOn = [...togs].map((t) => t.classList.contains('tog--on'));
+  const follow = p3.querySelector('.phone__card');
+  const btns = [p1, p2, p3].map((p) => p.querySelector('.phone__btn'));
+  let timers = [], running = false;
+  const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+  const stop = () => { timers.forEach(clearTimeout); timers = []; };
+
+  function reset() {
+    wave.classList.add('is-live'); mic.classList.add('is-live');
+    if (time) time.textContent = '00:00';
+    if (say) { say.textContent = ''; say.classList.add('is-typing'); }
+    cards.forEach((c) => c.classList.add('is-hide'));
+    togs.forEach((t) => t.classList.remove('tog--on'));
+    if (follow) follow.classList.add('is-hide');
+    btns.forEach((b) => b && b.classList.remove('is-done'));
+  }
+  const step = (i) => window.__wgStep && window.__wgStep(i);   // 왼쪽 5단계 + 폰 강조를 이야기에 맞춤
+  function run() {
+    stop(); reset(); step(0); at(900, () => step(1)); at(5600, () => step(2)); at(9300, () => step(3)); at(11600, () => step(4));
+    // 1) 기록: 0 ~ 5.2초 — 받아쓰기 + 타이머 00:00 → 00:42
+    const n = sayText.length, dur = 4600;
+    for (let i = 1; i <= n; i++) at(300 + (dur * i) / n, () => { say.textContent = sayText.slice(0, i); });
+    for (let s = 1; s <= 42; s++) at(300 + (dur * s) / 42, () => { if (time) time.textContent = '00:' + String(s).padStart(2, '0'); });
+    at(5200, () => { wave.classList.remove('is-live'); mic.classList.remove('is-live'); say && say.classList.remove('is-typing'); btns[0] && btns[0].classList.add('is-done'); });
+    // 2) 요약: 5.8 ~ 8.5초 — 카드가 한 장씩
+    cards.forEach((c, i) => at(5800 + i * 520, () => c.classList.remove('is-hide')));
+    at(8900, () => btns[1] && btns[1].classList.add('is-done'));
+    // 3) 전달: 9.6 ~ 12.6초 — 받을 곳 켜기 → 후속 확인 → 전달
+    let k = 0; togs.forEach((t, i) => { if (togOn[i]) at(9600 + (k++) * 600, () => t.classList.add('tog--on')); });
+    at(11600, () => follow && follow.classList.remove('is-hide'));
+    at(12600, () => btns[2] && btns[2].classList.add('is-done'));
+    at(16000, run);
+  }
+  const io = new IntersectionObserver((es) => es.forEach((en) => {
+    if (en.isIntersecting && !running) { running = window.__wgDemo = true; run(); }
+    else if (!en.isIntersecting && running) { running = window.__wgDemo = false; stop(); }
+  }), { threshold: 0.3 });
+  io.observe(document.querySelector('.phones'));
+})();
+
+/* 11. 수출 지도 — 보이면 경로 그리기, 화면 밖이면 반복 동작 일시정지 ------------------ */
+(function exportMap() {
+  document.querySelectorAll('.wmap').forEach((el) => {
+    const io = new IntersectionObserver((es) => es.forEach((en) => {
+      if (en.isIntersecting) el.classList.add('is-play');
+      el.classList.toggle('is-off', !en.isIntersecting);
+    }), { threshold: 0.35 });
+    io.observe(el);
+  });
 })();
